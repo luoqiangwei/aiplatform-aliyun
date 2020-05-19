@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="UTF-8">
+    <title>车辆保险</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/motorinsure.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mx-auto">
+                <h1>车辆保险自助申请</h1>
+                <div class="col-sm-12">
+                    <!--                    显示错误 -->
+                    <p th:text="${messages}" th:if="${messages != null}" class="alert alert-info"></p>
+                </div>
+                <form method="post" th:action="@{/issue/upload}" enctype="multipart/form-data">
+                    <!--                    row标示之后使用栅栏结构 -->
+                    <div class="row">
+                        <!--                       每行有12格，用4格 -->
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input id="carPic" class="form-control" onclick="$('#i-car').click();">
+                                <label class="input-group-btn">
+                                    <input type="button" id="i-check" value="上传您的车" class="btn btn-primary" onclick="$('#i-car').click();">
+                                </label>
+                            </div>
+                        </div>
+                        <!--                       下面这个并不显示，交给上面这个div显示更棒的效果~ -->
+                        <input type="file" name="car" id="i-car" accept=".jpg, .jpeg, .png" onchange="$('#carPic').val($('#i-car').val());" style="display: none">
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input id="drivePic" class="form-control" onclick="$('#i-car').click();">
+                                <label class="input-group-btn">
+                                    <input type="button" id="i-checkb" value="上传驾驶证" class="btn btn-primary" onclick="$('#i-drive').click();">
+                                </label>
+                            </div>
+                        </div>
+
+                        <input type="file" name="drive" id="i-drive" accept=".jpg, .jpeg, .png" onchange="$('#drivePic').val($('#i-drive').val());" style="display: none">
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary form-control">开始计算保单</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <a th:href="@{/index}"><button type="button" class="btn btn-primary form-control">返回主页</button></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 38px;">
+            <div class="col-md-12 mx-auto">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img th:src="${carImage}" th:if="carImage != null" class="img-fluid">
+                    </div>
+                    <div class="col-sm-4">
+                        <img th:src="${driveImage}" th:if="driveImage != null" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row show" style="margin-top: 38px;">
+            <div class="col-md-12 mx-auto" th:if="${carResult != null}">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><span>姓名: </span><span th:text="${driveResult.name}"></span></p>
+                        <p><span>序列号: </span><span th:text="${driveResult.licenseNumber}"></span></p>
+                        <p><span>驾照生效时间: </span><span th:text="${driveResult.issueDate}"></span></p>
+                        <p><span>驾照到期时间: </span><span th:text="${driveResult.endDate}"></span></p>
+                        <p><span>住址: </span><span th:text="${driveResult.address}"></span></p>
+                        <p><span>性别: </span><span th:text="${driveResult.gender}"></span></p>
+                        <p><span>准驾车型: </span><span th:text="${driveResult.vehicleType}"></span></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><span>车型: </span><span th:text="${carResult.carType}"></span></p>
+                        <p><span>需缴费用: </span><span th:text="${carResult.insurers}"></span>元</p>
+                        <p><span>理赔金额: </span><span th:text="${carResult.aoc}"></span>元</p>
+                        <p><span>签发: </span><span th:text="OVEA保险公司"></span></p>
+                        <p><span>保单有效期: </span><span th:text="2020-05-11"></span>-<span th:text="2025-05-10"></span></p>
+                        <p><span>保险单号: </span><span th:text="${carResult.id}"></span></p>
+                        <a th:href="${issue}"><p><span>下载图片以打印</span></p></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <hr>
+        <footer class="container-fluid foot-wrap">
+            <div class="fp">
+                <p>Copyright &copy; 2020</p>
+                <p>Contact information: <a href="">nluoqiangwei@qq.com</a></p>
+            </div>
+        </footer>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/motorinsure.js"></script>
+</html>

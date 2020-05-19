@@ -1,0 +1,32 @@
+body {
+    color: white;
+    background: url("../images/index.png") repeat center 0;
+}
+
+.heading {
+    text-align: center;
+}
+
+.vueGallery {
+    text-align: center;
+}
+
+.upload {
+    color: white;
+    text-align: center;
+    margin: 50px;
+}
+
+.text {
+    color: white;
+}
+
+.tags-wrap {
+    height: 500px;
+    width: 90%;
+}
+
+.activePhoto {
+    height: 500px;
+    width: 90%;
+}

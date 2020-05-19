@@ -1,0 +1,45 @@
+body {
+    background: url("../images/index.png") repeat center 0;
+}
+
+.show {
+    margin:0 auto;
+    width: 95%;
+    /*background: hsla(0, 0%,100%,.25) border-box;*/
+    background-color: rgba(235, 223, 245, 0.66);
+    /* 内容居中 */
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 30px;
+    box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset, 10px 10px 5px rgba(163, 91, 201, 0.66);
+    text-shadow: 0 1px 1px hsla(0,0%,100%,.3);
+
+    /*filter: blur(7px);*/
+    font-size: 2em;
+
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: scale(1);
+}
+
+.show:hover {
+    transform: scale(1.1);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #d9f5ff;
+}
+
+.row {
+    margin: 20px;
+}
+
+.title {
+    color: white;
+    text-align: center;
+    text-shadow: 0px 2px 2px rgba(71, 235, 255, 0.66);
+}
