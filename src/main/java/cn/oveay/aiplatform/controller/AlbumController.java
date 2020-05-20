@@ -2,7 +2,7 @@ package cn.oveay.aiplatform.controller;
 
 import cn.oveay.aiplatform.service.ResourceService;
 import cn.oveay.aiplatform.service.VisionService;
-import cn.oveay.aiplatform.utils.MD5;
+import cn.oveay.aiplatform.utils.encryption.MD5;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

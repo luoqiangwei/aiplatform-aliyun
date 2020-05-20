@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-12 mx-auto">
-                <h1>视频处理</h1>
+                <h1>视频高清化(x4)</h1>
                 <div class="col-sm-12">
                     <!--                    显示错误 -->
                     <p th:text="${messages}" th:if="${messages != null}" class="alert alert-info"></p>
@@ -42,6 +42,16 @@
                 </form>
             </div>
         </div>
+
+<!--        <div class="row" style="margin-top: 38px;">-->
+<!--            <div class="col-md-12 mx-auto">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-sm-4">-->
+<!--                        <video th:href="${video}" th:if="video != null"></video>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="row show" style="margin-top: 38px;">
             <div class="col-md-12 mx-auto" th:if="${video != null}">

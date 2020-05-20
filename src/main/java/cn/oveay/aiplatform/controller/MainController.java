@@ -32,8 +32,18 @@ import java.util.UUID;
 @Controller
 public class MainController {
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index() {
         return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
     }
 
     @RequestMapping("/album")

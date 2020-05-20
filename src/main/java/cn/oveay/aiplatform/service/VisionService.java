@@ -138,8 +138,9 @@ public class VisionService {
         result.put("insurers", insurers.toString());
         result.put("aoc", aoc.toString());
         result.put("id", randomId());
-        result.put("startTime", dateFormat.format(new Date()));
-        result.put("endTime", dateFormat.format(new Date(new Date().getTime() + 60 * 60 * 24 * 365)));
+        result.put("startTime", dateFormat.format(System.currentTimeMillis()));
+//        一定要加L
+        result.put("endTime", dateFormat.format(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 365));
         return result;
     }
 

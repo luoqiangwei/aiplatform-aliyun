@@ -281,7 +281,7 @@ public class MotorInsureController {
         //根据输入字符串得到字符数组
         String[] messages2 = compStr.split("", 0);
         String[] messages = new String[messages2.length-1];
-        System.arraycopy(messages2,1,messages,0,messages2.length-1);
+        System.arraycopy(messages2,0,messages,0,messages2.length-1);
 
         //输入的字数
         int length = messages.length;

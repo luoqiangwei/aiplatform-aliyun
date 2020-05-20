@@ -5,9 +5,6 @@ import com.aliyun.tearpc.models.Config;
 import com.aliyun.teautil.models.RuntimeOptions;
 import com.aliyun.videoenhan20200320.Client;
 import com.aliyun.videoenhan20200320.models.*;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.profile.DefaultProfile;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -109,7 +106,7 @@ public class VideoService {
     public String superResolveFlag(String filepath) throws Exception {
         SuperResolveVideoAdvanceRequest request = new SuperResolveVideoAdvanceRequest();
         request.videoUrlObject = Files.newInputStream(Paths.get(filepath));
-        request.bitRate = 100;
+        request.bitRate = 4;
         SuperResolveVideoResponse response = videoClient.superResolveVideoAdvance(request, runtimeOptions);
         return getFinalResult(response.requestId);
     }

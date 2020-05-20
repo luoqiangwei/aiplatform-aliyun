@@ -1,4 +1,4 @@
-package cn.oveay.aiplatform.utils;
+package cn.oveay.aiplatform.utils.encryption;
 
 import java.security.MessageDigest;
 
