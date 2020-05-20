@@ -35,7 +35,7 @@
 
                         <div class="col-sm-4">
                             <div class="input-group">
-                                <input id="drivePic" class="form-control" onclick="$('#i-car').click();">
+                                <input id="drivePic" class="form-control" onclick="$('#i-drive').click();">
                                 <label class="input-group-btn">
                                     <input type="button" id="i-checkb" value="上传驾驶证" class="btn btn-primary" onclick="$('#i-drive').click();">
                                 </label>
@@ -49,6 +49,16 @@
                         <div class="col-sm-2">
                             <a th:href="@{/index}"><button type="button" class="btn btn-primary form-control">返回主页</button></a>
                         </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input id="drivingPic" class="form-control" onclick="$('#i-driving').click();">
+                                <label class="input-group-btn">
+                                    <input type="button" id="i-checke" value="上传行驶证" class="btn btn-primary" onclick="$('#i-driving').click();">
+                                </label>
+                            </div>
+                        </div>
+                        <input type="file" name="driving" id="i-driving" accept=".jpg, .jpeg, .png" onchange="$('#drivingPic').val($('#i-driving').val());" style="display: none">
                     </div>
                 </form>
             </div>
@@ -62,6 +72,9 @@
                     </div>
                     <div class="col-sm-4">
                         <img th:src="${driveImage}" th:if="driveImage != null" class="img-fluid">
+                    </div>
+                    <div class="col-sm-4">
+                        <img th:src="${drivingImage}" th:if="drivingImage != null" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -77,13 +90,23 @@
                         <p><span>住址: </span><span th:text="${driveResult.address}"></span></p>
                         <p><span>性别: </span><span th:text="${driveResult.gender}"></span></p>
                         <p><span>准驾车型: </span><span th:text="${driveResult.vehicleType}"></span></p>
+
+                        <p><span>车牌: </span><span th:text="${drivingResult.plateNumber}"></span></p>
+                        <p><span>车辆所有者: </span><span th:text="${drivingResult.owner}"></span></p>
+                        <p><span>发动机号码: </span><span th:text="${drivingResult.engineNumber}"></span></p>
+                        <p><span>实际车型: </span><span th:text="${drivingResult.vehicleType}"></span></p>
+                        <p><span>具体车型: </span><span th:text="${drivingResult.model}"></span></p>
+                        <p><span>注册时间: </span><span th:text="${drivingResult.registerDate}"></span></p>
+                        <p><span>生效时间: </span><span th:text="${drivingResult.issueDate}"></span></p>
+                        <p><span>车辆识别代号: </span><span th:text="${drivingResult.vin}"></span></p>
+                        <p><span>使用性质: </span><span th:text="${drivingResult.useCharacter}"></span></p>
                     </div>
                     <div class="col-sm-4">
-                        <p><span>车型: </span><span th:text="${carResult.carType}"></span></p>
+                        <p><span>检测车型: </span><span th:text="${carResult.carType}"></span></p>
                         <p><span>需缴费用: </span><span th:text="${carResult.insurers}"></span>元</p>
                         <p><span>理赔金额: </span><span th:text="${carResult.aoc}"></span>元</p>
                         <p><span>签发: </span><span th:text="OVEA保险公司"></span></p>
-                        <p><span>保单有效期: </span><span th:text="2020-05-11"></span>-<span th:text="2025-05-10"></span></p>
+                        <p><span>保单有效期: </span><span th:text="${carResult.startTime}"></span>-<span th:text="${carResult.endTime}"></span></p>
                         <p><span>保险单号: </span><span th:text="${carResult.id}"></span></p>
                         <a th:href="${issue}"><p><span>下载图片以打印</span></p></a>
                     </div>

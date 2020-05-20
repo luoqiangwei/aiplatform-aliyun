@@ -3,27 +3,24 @@ package cn.oveay.aiplatform.service;
 import cn.oveay.aiplatform.basebean.CarEnum;
 import cn.oveay.aiplatform.basebean.CarIssueEnum;
 import cn.oveay.aiplatform.basebean.ExpressionEnum;
-import com.aliyun.common.models.RuntimeObject;
 import com.aliyun.facebody20191230.models.RecognizeExpressionAdvanceRequest;
 import com.aliyun.facebody20191230.models.RecognizeExpressionResponse;
 import com.aliyun.imagerecog20190930.models.RecognizeSceneAdvanceRequest;
 import com.aliyun.imagerecog20190930.models.RecognizeSceneResponse;
 import com.aliyun.imagerecog20190930.models.RecognizeVehicleTypeAdvanceRequest;
 import com.aliyun.imagerecog20190930.models.RecognizeVehicleTypeResponse;
-import com.aliyun.ocr20191230.Client;
 import com.aliyun.tearpc.models.Config;
 import com.aliyun.teautil.models.RuntimeOptions;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.beans.Expression;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -39,6 +36,8 @@ public class VisionService {
     private String accessKeyId;
     @Value("${aliapi.accessKeySecret}")
     private String accessKeySecret;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     static Random random = new Random();
 
@@ -130,15 +129,31 @@ public class VisionService {
             log.error(e.getMessage());
         }
         Map<String, String> result = new HashMap<>();
+        BigDecimal insurers = CarIssueEnum.getInsurersByName(carType);
+        insurers = insurers.add(BigDecimal.valueOf(random.nextInt(Integer.parseInt(insurers.toString()))));
+        BigDecimal aoc = CarIssueEnum.getAOCByName(carType);
+        aoc = aoc.add(BigDecimal.valueOf(random.nextInt(Integer.parseInt(aoc.toString()))));
+
         result.put("carType", CarEnum.getNameByEnName(carType));
-        result.put("insurers", CarIssueEnum.getInsurersByName(carType).toString());
-        result.put("aoc", CarIssueEnum.getAOCByName(carType).toString());
+        result.put("insurers", insurers.toString());
+        result.put("aoc", aoc.toString());
         result.put("id", randomId());
+        result.put("startTime", dateFormat.format(new Date()));
+        result.put("endTime", dateFormat.format(new Date(new Date().getTime() + 60 * 60 * 24 * 365)));
         return result;
     }
+
     public String randomId() {
-        StringBuffer buffer = new StringBuffer("68000");
+        StringBuilder buffer = new StringBuilder("68000");
         for (int i = 0; i < 7; i++) {
+            buffer.append(random.nextInt(10));
+        }
+        return buffer.toString();
+    }
+
+    public String randomId(int prefix, int n) {
+        StringBuilder buffer = new StringBuilder(prefix);
+        for (int i = 0; i < n; i++) {
             buffer.append(random.nextInt(10));
         }
         return buffer.toString();

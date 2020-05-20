@@ -72,7 +72,7 @@ public class OcrService {
         return JSON.parseObject(JSON.toJSONString(response.data.faceResult), new TypeReference<Map<String, String>>(){});
     }
 
-    public Map<String, String> recognizeCarCard(String fielpath) throws Exception {
+    public Map<String, String> recognizeDrivingCard(String fielpath) throws Exception {
         RecognizeDrivingLicenseAdvanceRequest request = new RecognizeDrivingLicenseAdvanceRequest();
         request.imageURLObject = Files.newInputStream(Paths.get(fielpath));
         request.side = "face";

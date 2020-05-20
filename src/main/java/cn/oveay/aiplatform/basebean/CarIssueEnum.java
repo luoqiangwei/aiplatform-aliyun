@@ -8,10 +8,10 @@ import java.math.BigDecimal;
  * 文件说明：
  */
 public enum CarIssueEnum {
-    car ("car", BigDecimal.valueOf(100), BigDecimal.valueOf(100000000)),
-    MPV_mian ("MPV_mian", BigDecimal.valueOf(600), BigDecimal.valueOf(600000000)),
-    others ("others", BigDecimal.valueOf(50), BigDecimal.valueOf(5000000)),
-    SUV ("SUV", BigDecimal.valueOf(500), BigDecimal.valueOf(500000000));
+    car ("car", BigDecimal.valueOf(6000), BigDecimal.valueOf(100000000)),
+    MPV_mian ("MPV_mian", BigDecimal.valueOf(9000), BigDecimal.valueOf(600000000)),
+    others ("others", BigDecimal.valueOf(5000), BigDecimal.valueOf(5000000)),
+    SUV ("SUV", BigDecimal.valueOf(6000), BigDecimal.valueOf(500000000));
 
     String name;
     BigDecimal insurers;
