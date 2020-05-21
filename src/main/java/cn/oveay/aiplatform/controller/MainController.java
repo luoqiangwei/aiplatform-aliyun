@@ -4,11 +4,11 @@ import cn.oveay.aiplatform.basebean.User;
 import cn.oveay.aiplatform.service.LoginService;
 import cn.oveay.aiplatform.service.RegisterService;
 import cn.oveay.aiplatform.utils.autoid.Nanoflake;
-import cn.oveay.aiplatform.utils.security.Token;
-import cn.oveay.aiplatform.utils.security.Verify;
 import cn.oveay.aiplatform.utils.sms.SMSUtil;
+import cn.oveay.aiplatform.utils.token.Token;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,19 +31,18 @@ public class MainController {
         return "index";
     }
 
+    @Value("${token-timeout}")
+    private Integer tokenTimeOut;
+
     @Autowired
     private RegisterService registerService;
     @Autowired
     private LoginService loginService;
-    @Autowired
-    private Token tokenService;
-    @Autowired
-    private Verify verifyService;
 
     @RequestMapping("/login")
     public String loginIndex(Model model, HttpServletRequest request) {
         String token = Nanoflake.getNanoflake();
-        tokenService.addToken(request.getSession().getId(), token);
+        Token.set(request.getSession().getId(), token, tokenTimeOut);
         model.addAttribute("token", token);
         return "login";
     }
@@ -89,7 +88,7 @@ public class MainController {
             return  "forward:/login";
         }
 
-        if(!tokenService.checkToken(request.getSession().getId(), token)){
+        if(!Token.check(request.getSession().getId(), token)){
             model.addAttribute("form", "您的签名不正确，表单失效");
             reSet(model, phone, password);
             return "forward:/login";
@@ -111,7 +110,7 @@ public class MainController {
     @RequestMapping("/register")
     public String registerIndex(Model model, HttpServletRequest request) {
         String token = Nanoflake.getNanoflake();
-        tokenService.addToken(request.getSession().getId(), token);
+        Token.set(request.getSession().getId(), token, tokenTimeOut);
         model.addAttribute("token", token);
         return "register";
     }
@@ -119,7 +118,7 @@ public class MainController {
     @RequestMapping("/verify")
     public String verify(Model model,  HttpServletRequest request) throws ServletException, IOException {
         String token = Nanoflake.getNanoflake();
-        tokenService.addToken(request.getSession().getId(), token);
+        Token.set(request.getSession().getId(), token, tokenTimeOut);
         model.addAttribute("token", token);
         return "verify";
     }
@@ -158,7 +157,7 @@ public class MainController {
             return  "forward:/register";
         }
 
-        if(!tokenService.checkToken(request.getSession().getId(), token)){
+        if(!Token.check(request.getSession().getId(), token)){
             model.addAttribute("form", "您的签名不正确，表单失效");
             reSet(model, phone, password);
             return "forward:/register";
@@ -174,8 +173,8 @@ public class MainController {
         }
 
         String code = SMSUtil.sendMsg(phone);
-        log.warn("code: " + code);
-        verifyService.addVerify(request.getSession().getId(), code);
+//        log.warn("code: " + code);
+        Token.set(request.getSession().getId() + "P", code, tokenTimeOut);
 
         request.getSession().setAttribute("ruser", user);
         return "forward:/verify";
@@ -190,7 +189,7 @@ public class MainController {
 
     @RequestMapping("/check")
     public String check(Model model, String token, String verifycode, HttpServletRequest request){
-        if(!tokenService.checkToken(request.getSession().getId(), token)){
+        if(!Token.check(request.getSession().getId(), token)){
             model.addAttribute("form", "您的签名不正确，表单失效");
             return "forward:/verify";
         }
@@ -199,7 +198,7 @@ public class MainController {
             model.addAttribute("form", "未知错误");
             return "forward:/verify";
         }
-        if(!verifyService.checkVerify(request.getSession().getId(), verifycode)){
+        if(!Token.check(request.getSession().getId() + "P", verifycode)){
             model.addAttribute("form", "短信验证码错误");
             return "forward:/verify";
         }

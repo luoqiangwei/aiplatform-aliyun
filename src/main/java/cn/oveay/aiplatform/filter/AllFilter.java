@@ -20,7 +20,7 @@ public class AllFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        log.warn("doFilter URI: " + request.getRequestURI());
+        log.warn(request.getRequestedSessionId() + "doFilter URI: " + request.getRequestURI());
         if (request.getRequestURI().equals("/") || request.getRequestURI().equals("/index")
             || request.getRequestURI().startsWith("/login") || request.getRequestURI().startsWith("/register")
             || request.getRequestURI().startsWith("/css") || request.getRequestURI().startsWith("/images")

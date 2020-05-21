@@ -26,7 +26,7 @@ public class RSA {
     static {
         // 加载配置文件
         Properties props = new Properties();
-        InputStream inputStream = RSA.class.getClassLoader().getResourceAsStream("config.properties");
+        InputStream inputStream = RSA.class.getClassLoader().getResourceAsStream("application.properties");
         if (inputStream != null) {
             try {
                 props.load(inputStream);
