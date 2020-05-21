@@ -1,11 +1,14 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     <title>计算机科学基础知识答题网 - 消息</title>
-    <div th:replace="/templates/setting :: setting" ></div>
     <meta http-equiv="refresh" content="1; URL=${toUrl}">
 </head>
 <body>
+<div th:replace="/templates/setting :: setting" ></div>
 <div th:replace="/templates/top :: top" ></div>
 <div class="center container">
     <h1>${msg}</h1>

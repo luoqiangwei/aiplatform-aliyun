@@ -2,10 +2,11 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>智能相册</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="css/album.css">
-    <div th:replace="/templates/setting :: setting" ></div>
+    <link rel="stylesheet" href="/css/album.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -13,6 +14,7 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
+    <div th:replace="/templates/setting :: setting" ></div>
     <div th:replace="/templates/top :: top" ></div>
     <div class="center">
         <div id="appEvent"></div>
@@ -20,7 +22,7 @@
         <div class="heading">
             <h1>智能相册</h1>
         </div>
-        <div class="container center">
+        <div class="container">
             <div class="upload" id="upload">
                 <el-upload class="upload-demo"
                     drag

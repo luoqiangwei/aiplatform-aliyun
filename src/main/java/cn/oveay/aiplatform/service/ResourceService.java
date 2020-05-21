@@ -158,7 +158,7 @@ public class ResourceService {
         }
 
         public List<String> getImgByCateAndLabel(String cate, String label) {
-            String key = String.format("%s%_s", cate, label);
+            String key = String.format("%s_%s", cate, label);
 
             Set<String> result = new HashSet<>();
             switch (cate) {

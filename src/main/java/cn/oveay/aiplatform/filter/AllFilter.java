@@ -26,7 +26,8 @@ public class AllFilter implements Filter {
             || request.getRequestURI().startsWith("/css") || request.getRequestURI().startsWith("/images")
             || request.getRequestURI().startsWith("/scripts") || request.getRequestURI().startsWith("/check")
             || request.getRequestURI().startsWith("/test") || request.getRequestURI().startsWith("/verify")
-            || request.getRequestURI().startsWith("/js") || request.getRequestURI().equals("/favicon.ico")) {
+            || request.getRequestURI().startsWith("/js") || request.getRequestURI().equals("/favicon.ico")
+            || request.getRequestURI().startsWith("/img")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else if (request.getSession().getAttribute("user") != null) {
             filterChain.doFilter(servletRequest, servletResponse);

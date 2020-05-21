@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     <title>主页</title>
-    <div th:replace="/templates/setting :: setting" ></div>
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
+    <div th:replace="/templates/setting :: setting" ></div>
     <div th:replace="/templates/top :: top" ></div>
     <div class="center">
         <div class="container title">
@@ -14,21 +17,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="/idcard/index">
+                    <a href="/idcard/index" style="text-decoration: none;">
                         <div class="show">
                             <p>身份证识别</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/album">
+                    <a href="/album" style="text-decoration: none;">
                         <div class="show">
                             <p>智能相册</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/issue/index">
+                    <a href="/issue/index" style="text-decoration: none;">
                         <div class="show">
                             <p>车辆保险</p>
                         </div>
@@ -37,23 +40,23 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <a href="/video/index">
+                    <a href="/video/index" style="text-decoration: none;">
                         <div class="show">
-                            <p>视频处理</p>
+                            <p>视频高清化</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="http://39.98.78.5:9898/excel.php">
+                    <a href="http://39.98.78.5:9898/excel.php" style="text-decoration: none;">
                         <div class="show">
                             <p>表格识别</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="">
+                    <a href="/video/clear" style="text-decoration: none;">
                         <div class="show">
-
+                            <p>视频去水印</p>
                         </div>
                     </a>
                 </div>

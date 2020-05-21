@@ -8,7 +8,7 @@ Vue.component('vue-gallery', {
     },
     template: `
     <div class="vueGallery">
-        <div class="activePhoto" :style="'background-image: url('+photos[activePhoto]+');'">
+        <div class="activePhoto" :style="'background-image: url('+photos[activePhoto]+'); background-repeat: no-repeat; '">
             <button type="button" aria-label="Previous Photo" class="previous" @click="previousPhoto()">
                 <i class="fas fa-chevron-circle-left"></i>
             </button>
@@ -22,8 +22,7 @@ Vue.component('vue-gallery', {
                 :src="photo"
                 :key="index"
                 @click="changePhoto(index)"
-                :class="{'active': activePhoto == index}"
-                :style="'background-image: url{'+photo+'}'">
+                :class="{'active': activePhoto == index}" :style="'background-image: url('+photo+');'">
             </div>
         </div>
     </div>
@@ -80,7 +79,7 @@ Vue.component('v-tag', {
         getBgcNo: function() {
             return Math.ceil(Math.random() * 10) - 1;
         },
-        getPhotoByTag(cate, tag) {
+        getPhotosByTag(cate, tag) {
             customEvent.$emit('getPhotosByCateAndLabel', cate, tag);
         },
         getCate(cate) {
@@ -147,12 +146,14 @@ let albumIns = new Vue({
             console.log(this.photos);
         },
         getPhotosByCateAndLabel: async function(cate, tag) {
-            let res = await axios.get("/album/v1/getPhotoByCateAndLabel?tag=${tag}&cate=${cate}");
+            let url = `/album/v1/getPhotoByCateAndLabel?tag=${tag}&cate=${cate}`;
+            let res = await axios.get(url);
             this.photos = res.data;
             console.log(this.photos);
         },
         getPhotosByCate: async function(cate) {
-            let res = await axios.get("/album/v1/getPhotoByCate?cate=${cate}");
+            let url = `/album/v1/getPhotoByCate?cate=${cate}`;
+            let res = await axios.get(url);
             this.photos = res.data;
             console.log(this.photos);
         }

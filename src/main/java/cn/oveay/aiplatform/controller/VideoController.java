@@ -48,8 +48,51 @@ public class VideoController {
         return "lthvideo";
     }
 
-    @PostMapping("/upload")
-    public String upload(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes) {
+    @RequestMapping("/clear")
+    public String clear(Model model) {
+        // 说明只上传了身份证的一面
+        if (resultUrls.size() > 0) {
+            model.addAttribute("video", resultUrls.get(resultUrls.size() - 1));
+        }
+        return "videoclear";
+    }
+
+    @PostMapping("/uploadclear")
+    public String uploadclear(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes) {
+        if (userVideo.isEmpty()) {
+            redirectAttributes.addFlashAttribute("messages", "请选择一个文件进行上传。");
+            return "redirect:/video/index";
+        }
+        String errorMessages = null;
+        Path dir = Paths.get(uploadDir);
+        if (!Files.exists(dir)) {
+            try {
+                Files.createDirectories(dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+                errorMessages += e.getMessage() + "\n";
+            }
+        }
+        try {
+            if (!userVideo.isEmpty()) {
+                String filename = saveFile(userVideo);
+//                企图处理Bilibili台标失败，不知道为什么，加了限定范围后就会处理失败
+//                resultUrls.add(videoService.clearVideoFlag(uploadDir + filename, 0.24, 0.24, 0, 0.74));
+//                效果不太好……
+                resultUrls.add(videoService.clearVideoFlag(uploadDir + filename));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            errorMessages += e.getMessage() + "\n";
+        }
+        if (StringUtils.isNoneBlank(errorMessages)) {
+            redirectAttributes.addFlashAttribute("messages", errorMessages);
+        }
+        return "redirect:/video/clear";
+    }
+
+    @PostMapping("/uploadlth")
+    public String uploadlth(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes) {
         if (userVideo.isEmpty()) {
             redirectAttributes.addFlashAttribute("messages", "请选择一个文件进行上传。");
             return "redirect:/video/index";

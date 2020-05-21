@@ -8,7 +8,7 @@ body{
     display: flex;
     height: 100%;
     flex-direction: column;
-    background: url("../images/index.png") repeat center 0;
+    background: url("../images/index.png") no-repeat fixed center 0;
 }
 
 header{
@@ -76,7 +76,7 @@ footer{
     /* 内容居中 */
     text-align: center;
     vertical-align: middle;
-    box-shadow: 4px 4px 1px rgba(0, 48, 170, 0.66);
+    box-shadow: 1px 1px 20px rgba(0, 70, 255, 0.66);
     text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.3);
 
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -84,7 +84,7 @@ footer{
 }
 
 .show-c:hover {
-    box-shadow: 8px 8px 4px rgba(153, 179, 255, 0.66);
+    box-shadow: 2px 2px 50px rgba(18, 255, 246, 0.66);
     transform: scale(1.1);
 }
 
@@ -95,4 +95,8 @@ a {
 a:hover {
     text-decoration: none;
     color: #d9f5ff;
+}
+
+a:focus {
+    text-decoration: none;
 }

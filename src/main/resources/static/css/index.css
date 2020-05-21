@@ -11,7 +11,7 @@
     text-align: center;
     vertical-align: middle;
     border-radius: 30px;
-    box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset, 10px 10px 5px rgba(163, 91, 201, 0.66);
+    box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset, 1px 1px 20px rgba(1, 12, 250, 0.66);
     text-shadow: 0 1px 1px hsla(0,0%,100%,.3);
 
     /*filter: blur(7px);*/
@@ -22,17 +22,22 @@
 }
 
 .show:hover {
+    box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset, 2px 2px 50px rgba(18, 255, 246, 0.66);
     transform: scale(1.1);
 }
 
-a {
-    text-decoration: none;
-}
+/*a {*/
+/*    text-decoration: none;*/
+/*}*/
 
-a:hover {
-    text-decoration: none;
-    color: #d9f5ff;
-}
+/*a:hover {*/
+/*    text-decoration: none;*/
+/*    color: #d9f5ff;*/
+/*}*/
+
+/*a:focus {*/
+/*    text-decoration: none;*/
+/*}*/
 
 .row {
     margin: 20px;

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
     <title>视频高清化</title>
-    <div th:replace="/templates/setting :: setting" ></div>
     <link rel="stylesheet" href="/css/lthvideo.css">
 </head>
 <body>
+    <div th:replace="/templates/setting :: setting" ></div>
     <div th:replace="/templates/top :: top" ></div>
     <div class="container center">
         <div class="row">
@@ -15,7 +18,7 @@
                     <!--                    显示错误 -->
                     <p th:text="${messages}" th:if="${messages != null}" class="alert alert-info"></p>
                 </div>
-                <form method="post" th:action="@{/video/upload}" enctype="multipart/form-data">
+                <form method="post" th:action="@{/video/uploadlth}" enctype="multipart/form-data">
                     <!--                    row标示之后使用栅栏结构 -->
                     <div class="row">
                         <!--                       每行有12格，用4格 -->

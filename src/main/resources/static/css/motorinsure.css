@@ -23,12 +23,12 @@ img:hover {
     opacity: 0.9;
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: scale(1);
-    box-shadow: 4px 4px 1px rgba(18, 255, 246, 0.66);
+    box-shadow: 1px 1px 20px rgba(3, 56, 252, 0.66);
 }
 
 .show:hover {
     transform: scale(1.1);
-    box-shadow: 10px 10px 5px rgba(110, 255, 246, 0.66);
+    box-shadow: rgba(18, 255, 246, 0.66);
 }
 
 h1 {

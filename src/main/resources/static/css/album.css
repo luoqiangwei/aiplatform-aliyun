@@ -7,26 +7,136 @@ body {
     text-align: center;
 }
 
+.thumbnails {
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+    height: 60px;
+    width: auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/*缩略图*/
+.thumbnails div {
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 60px;
+    width: 60px;
+    border-radius: 5px;
+}
+
+.active {
+    border-style: solid;
+    border-color: #00293b
+}
+
 .vueGallery {
     text-align: center;
+    /*background-position: center;*/
 }
 
 .upload {
-    color: white;
+    color: black;
     text-align: center;
     margin: 50px;
 }
 
 .text {
-    color: white;
+    color: black;
 }
 
 .tags-wrap {
-    height: 500px;
+    height: 50px;
     width: 90%;
+    margin-top: 7px;
+}
+
+.previous {
+    float: left;
+    height: 400px;
+    width: auto;
+    opacity: 70%;
+}
+
+.next {
+    float: right;
+    height: 400px;
+    width: auto;
+    opacity: 70%;
 }
 
 .activePhoto {
-    height: 500px;
+    height: 400px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+#upload {
+    opacity: 96%;
+    padding: 2%;
     width: 90%;
+    height: auto;
+    background-color: white;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: scale(1);
+    box-shadow: 1px 1px 10px rgba(12, 100, 253, 0.66);
+    border-radius: 10px;
+}
+
+#app {
+    opacity: 96%;
+    padding: 2%;
+    width: 90%;
+    height: auto;
+    background-color: white;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: scale(1);
+    box-shadow: 1px 1px 10px rgba(12, 100, 253, 0.66);
+    border-radius: 10px;
+}
+
+#my-custom-tags  {
+    margin-top: 40px;
+    opacity: 96%;
+    padding: 2%;
+    width: 90%;
+    height: auto;
+    background-color: white;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: scale(1);
+    box-shadow: 1px 1px 10px rgba(12, 100, 253, 0.66);
+    border-radius: 10px;
+}
+
+#app:hover {
+    transform: scale(1.1);
+    box-shadow: 2px 2px 50px rgba(18, 255, 246, 0.66);
+}
+
+#upload:hover {
+    transform: scale(1.1);
+    box-shadow: 2px 2px 50px rgba(18, 255, 246, 0.66);
+}
+
+#my-custom-tags:hover {
+    transform: scale(1.1);
+    box-shadow: 2px 2px 50px rgba(18, 255, 246, 0.66);
+}
+
+.tags {
+    padding: 2px;
+    height: auto;
+    width: auto;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 4px;
+    float: left;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.tags:hover {
+    box-shadow: 2px 2px 30px rgba(11, 137, 232, 0.66);
 }

@@ -10,19 +10,19 @@
 <!--                <a href="/Login?method=cancellation"><p>注销</p></a>-->
                 <div class="col-md-8"></div>
                 <div class="col-md-2">
-                    <a href="#" class="mainMenu"><button type="button" class="btn btn-success form-control" th:text="${session.user.nickname}"></button></a>
+                    <a href="#" class="mainMenu"><button type="button" class="btn btn-success form-control show-c" th:text="${session.user.nickname}"></button></a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/logout" class="mainMenu"><button type="button" class="btn btn-dark form-control">注销</button></a>
+                    <a href="/logout" class="mainMenu"><button type="button" class="btn btn-dark form-control show-c">注销</button></a>
                 </div>
             </div>
             <div th:if="${session.user == null}" class="topper row">
                 <div class="col-md-8"></div>
                 <div class="col-md-2">
-                    <a href="/login" class="mainMenu"><button type="button" class="btn btn-primary form-control">登录</button></a>
+                    <a href="/login" class="mainMenu"><button type="button" class="btn btn-primary form-control show-c">登录</button></a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/register" class="mainMenu"><button type="button" class="btn btn-light form-control">注册</button></a>
+                    <a href="/register" class="mainMenu"><button type="button" class="btn btn-light form-control show-c">注册</button></a>
                 </div>
             </div>
         </div>

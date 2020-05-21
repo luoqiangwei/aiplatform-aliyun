@@ -35,19 +35,18 @@ public class SMSUtil {
     private static Random random = new Random();
 
     public static String sendMsg(String phone){
-        // TODO
-//        SmsSingleSender smsSingleSender = new SmsSingleSender(appid, appkey);
+        SmsSingleSender smsSingleSender = new SmsSingleSender(appid, appkey);
         // 分别是模板中 {1} 和 {2}
         String[] params = new String[]{String.valueOf(random.nextInt(9999)), "10"};
-//        try {
-//            SmsSingleSenderResult result = smsSingleSender.sendWithParam("86", phone, templateId, params, smsSign, "", "");
-//        } catch (HTTPException e) {
-//            // HTTP 响应码错误
-//            log.error("SMSUtil.sendMsg: " + e.getMessage());
-//        } catch (IOException e) {
-//            // 网络 IO 错误
-//            log.error("SMSUtil.sendMsg: " + e.getMessage());
-//        }
+        try {
+            SmsSingleSenderResult result = smsSingleSender.sendWithParam("86", phone, templateId, params, smsSign, "", "");
+        } catch (HTTPException e) {
+            // HTTP 响应码错误
+            log.error("SMSUtil.sendMsg: " + e.getMessage());
+        } catch (IOException e) {
+            // 网络 IO 错误
+            log.error("SMSUtil.sendMsg: " + e.getMessage());
+        }
         return params[0];
     }
 }
