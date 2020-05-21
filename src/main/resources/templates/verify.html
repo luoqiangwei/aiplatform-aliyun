@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>验证</title>
+    <div th:replace="/templates/setting :: setting" ></div>
+</head>
+<body>
+<div th:replace="/templates/top :: top" ></div>
+    <div class="center container">
+        <h1 class="register">账号验证</h1>
+        <div class="form-group" id="rform">
+            <p class="perr" th:text="${form}"></p>
+            <form action="/check" method="post">
+                <input type="hidden" name="token" th:value="${token}">
+
+                <label for="rverifycode">验证码（验证码已经自动发送）<p class="perr" th:text="${verifycode}"></p></label>
+                <input type="password" name="verifycode" class="form-control" placeholder="Enter verify code" id="rverifycode" th:value="${rverifycode}"><br>
+                <br>
+                <input type="submit" class="btn btn-primary" value="提交">
+            </form>
+        </div>
+    </div>
+<div th:replace="/templates/foot :: footer" ></div>
+</body>
+</html>

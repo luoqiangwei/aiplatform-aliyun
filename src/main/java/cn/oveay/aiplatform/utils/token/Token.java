@@ -24,7 +24,6 @@ public class Token {
     private static RedisSetStringList setList = new RedisSetStringList(1000);
     private volatile static ArrayList<String> getList = new ArrayList<>(1000);
 
-    // TODO 多线程分发机制
     // 读、写、内存回收、分配线程的数目
     private static int readThreadNumber = 1;
     private static int writeThreadNumber = 1;

@@ -93,13 +93,13 @@ public class IDCardController {
             if (!face.isEmpty()) {
                 String filename = saveFile(face);
                 Map<String, String> faceResult = ocrService.recognizeIdCard(uploadDir + filename, "face");
-                faceImages.add("/images/" + filename);
+                faceImages.add("/images/idcard/" + filename);
                 faceResults.add(faceResult);
             }
             if (!back.isEmpty()) {
                 String filename = saveFile(back);
                 Map<String, String> faceResult = ocrService.recognizeIdCard(uploadDir + filename, "back");
-                backImages.add("/images/" + filename);
+                backImages.add("/images/idcard/" + filename);
                 backResults.add(faceResult);
             }
         } catch (Exception e) {

@@ -1,0 +1,30 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="top" class="header">
+    <header>
+        <div class="himage">
+            <a href="/index"><img class="show-c" height="70" width="70" style="border-radius:50%" src="/images/all.jpg"></a>
+        </div>
+        <div class="hmenu">
+            <div th:if="${session.user != null}" class="topper row">
+<!--                <div class="col-md-8"></div>-->
+<!--                <p>${userInfo.nickname }</p>-->
+<!--                <a href="/Login?method=cancellation"><p>注销</p></a>-->
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <a href="#" class="mainMenu"><button type="button" class="btn btn-success form-control" th:text="${session.user.nickname}"></button></a>
+                </div>
+                <div class="col-md-2">
+                    <a href="/logout" class="mainMenu"><button type="button" class="btn btn-dark form-control">注销</button></a>
+                </div>
+            </div>
+            <div th:if="${session.user == null}" class="topper row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <a href="/login" class="mainMenu"><button type="button" class="btn btn-primary form-control">登录</button></a>
+                </div>
+                <div class="col-md-2">
+                    <a href="/register" class="mainMenu"><button type="button" class="btn btn-light form-control">注册</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

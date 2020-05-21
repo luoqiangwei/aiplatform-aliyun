@@ -126,9 +126,9 @@ public class JedisUtils {
                 Transaction multi = jedis.multi();
                 boolean reuslt = false;
                 if (ttl > 0){
-                    reuslt = jedis.set(key, value, SetParams.setParams().px(ttl)).equals("OK");
+                    reuslt = multi.set(key, value, SetParams.setParams().px(ttl)).equals("OK");
                 } else {
-                    reuslt = jedis.set(key, value).equals("OK");
+                    reuslt = multi.set(key, value).equals("OK");
                 }
                 multi.exec();
                 jedis.close();

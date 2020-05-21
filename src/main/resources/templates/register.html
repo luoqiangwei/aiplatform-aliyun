@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>注册</title>
+    <div th:replace="/templates/setting :: setting" ></div>
+    <link rel="stylesheet" href="/css/register.css">
+    <script type="text/javascript">
+        function reloadCode() {
+            var time = new Date().getTime();
+            document.getElementById("imageCode").src="/verify/createVerify?t=" + time;
+        }
+    </script>
 </head>
 <body>
+<div th:replace="/templates/top :: top" ></div>
+<div class="center container">
+    <h1 class="register">注册</h1>
+    <div class="form-group" id="rform">
+        <p class="perr" th:text="${form}" th:if="from != null"></p>
+        <form action="/register/register" method="post">
+            <input type="hidden" name="token" th:value="${token}">
 
+            <label for="rphone">电话号码<p class="perr" th:text="${phone}"></p></label>
+            <input type="number" name="phone" class="form-control" placeholder="Enter phone" id="rphone" th:value="${rphone}"><br>
+
+            <label for="rpassword">密码<p class="perr" th:text="${password}"></p></label>
+            <input type="password" name="password" class="form-control" placeholder="Password" id="rpassword" th:value="${rpassword}"><br>
+
+            <label for="rrpassword">再输入一次密码</label>
+            <input type="password" name="repassword" class="form-control" placeholder="Password" id="rrpassword"><br>
+
+            <label for="rvcode">验证码<p class="perr" th:text="${vcode}"></p></label>
+            <input type="text" name="vcode" class="form-control" placeholder="Enter Verify Code" id="rvcode"><br>
+            <a href="javascript:reloadCode()" ID="ricode"><img id="imageCode" style="border-radius: 3px;" src="/verify/createVerify" alt="Verify Code"></a><br>
+
+            <br>
+            <input type="submit" class="btn btn-primary form-control" value="提交">
+        </form>
+    </div>
+</div>
+<div th:replace="/templates/foot :: footer" ></div>
 </body>
 </html>

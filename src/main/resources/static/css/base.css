@@ -1,0 +1,98 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    background: url("../images/index.png") repeat center 0;
+}
+
+header{
+    flex: 0 0 auto;
+    padding: 5% 5% 5% 5%;
+}
+
+.center{
+    flex: 1 0 auto;
+    color: white;
+    padding: 5% 5% 5% 5%;
+}
+
+footer{
+    flex: 0 0 auto;
+}
+
+.footer{
+    padding: 1% 1% 1% 1%;
+}
+
+.fp p{
+    font-size: 15px;
+    line-height: 5px;
+    color: white;
+}
+
+.himage{
+    float: left;
+}
+
+.htitle{
+    margin-top: 20px;
+    margin-left: 20px;
+    float: left;
+}
+
+/*.hmenu{*/
+/*    color: #00e8fd;*/
+/*    float: right;*/
+/*}*/
+
+.topper p {
+    /*display: inline-block;*/
+    float:left;
+}
+
+.mainMenu{
+}
+
+.header{
+    margin: 1px;
+    width: auto;
+    height: 100px;
+    /*border: 5px solid grey;*/
+}
+
+.perr {
+    color: red;
+}
+
+/*加上这个后，div将会有很棒的显示效果*/
+.show-c {
+    /*background: hsla(0, 0%,100%,.25) border-box;*/
+    /* 内容居中 */
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 4px 4px 1px rgba(0, 48, 170, 0.66);
+    text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.3);
+
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform: scale(1);
+}
+
+.show-c:hover {
+    box-shadow: 8px 8px 4px rgba(153, 179, 255, 0.66);
+    transform: scale(1.1);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #d9f5ff;
+}
