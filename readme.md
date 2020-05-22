@@ -10,11 +10,11 @@
 
 ## 开发环境
 
-- OpenJdk14
+- OpenJdk 14
 - Maven 3.6.3
-- IntelliJ IDEA
-- MySQL
-- Redis
+- IntelliJ IDEA 2020.1
+- MySQL 8.0
+- Redis 5.0.7
 
 
 
@@ -48,7 +48,7 @@ Redis主要用来作为Token和短信验证的验证码存放区域，设置时�
 
 - AlbumController负责响应”智能相册“功能的请求，比如上传图片啦，需要什么种类的图片啦~
 - IDCardController负责响应”身份证识别“功能的请求
-- MainController负责响应“主页”、“登录”和“注册”功能的请求，登录错误次数过多，可是要**惩罚**输入验证码的！
+- MainController负责响应“主页”、“登录”和“注册”功能的请求，登录错误次数过多，可是要**惩罚**输入验证码的！登录、注册和验证的表单中都插入了**Token**，防止部分爬虫登录、注册和验证。
 - MotorInsureController负责响应“车辆保险”的请求，它还绘制了**无比真实的保险单**！印章的位置和方向是随机的~它还会最终处理保单的费用和保价，营运车辆当然不可能和其他车辆一样的保费，稍微要贵yi点  ˋ( ° ▽、° ) 
 - VideoController负责响应“视频高清化”和“视频去水印”功能的请求
 
@@ -69,7 +69,7 @@ UserDao接口负责与Mysql直接，执行用户数据的操作
 - RegisterService负责完成最终的用户登录功能
 - ResourceService负责资源服务处理
 - VideoService负责完成视频的高清化和去水印
-- VisionService识别图片中的人物表情和背景类型，还有车辆，在识别了车辆后，它会给出一个评估保价和费用
+- VisionService识别图片中的人物表情和背景类型，还有车辆，在识别了车辆后，它会给出一个**评估保价和费用**
 
 ### 工具类
 
@@ -215,9 +215,9 @@ UserDao接口负责与Mysql直接，执行用户数据的操作
 
 > 只有登陆后才能访问这些功能
 
-![image-20200521075049462](readme.assets/image-20200521075049462.png)
+![image-20200522090746989](readme.assets/image-20200522090746989.png)
 
-![image-20200521081243155](readme.assets/image-20200521081243155.png)
+![image-20200522090821970](readme.assets/image-20200522090821970.png)
 
 ### 注册界面
 
@@ -235,7 +235,7 @@ UserDao接口负责与Mysql直接，执行用户数据的操作
 
 > 连续3次错误将会触发验证码验证，防止暴力破解登录
 
-![image-20200521075213588](readme.assets/image-20200521075213588.png)
+![image-20200522090915737](readme.assets/image-20200522090915737.png)
 
 ![image-20200521080845879](readme.assets/image-20200521080845879.png)
 
@@ -290,6 +290,8 @@ UserDao接口负责与Mysql直接，执行用户数据的操作
 ![image-20200521161154128](readme.assets/image-20200521161154128.png)
 
 ![image-20200521161218377](readme.assets/image-20200521161218377.png)
+
+> 因为是异步请求，所以可能需要等一段时间才能处理完成
 
 ## 演示视频
 
