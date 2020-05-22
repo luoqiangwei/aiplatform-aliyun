@@ -31,45 +31,18 @@ public class ResourceService {
     @Value("${imagePath}")
     private String imagePath;
 
-    static final String fileName = "data.json";
-    private LabelModel labelModel;
-
     @Autowired
     private VisionService visionService;
 
-    @PostConstruct
-    public void loadMetaData() {
-        log.info("laod");
-        try (InputStream inputStream = new FileInputStream(storagePath + fileName)) {
-            labelModel = JSONObject.parseObject(inputStream, LabelModel.class);
-        } catch (Exception e) {
-            log.error(e.toString());
-        }
-        if (labelModel == null) {
-            labelModel = new LabelModel();
-        }
-    }
-
-    @PreDestroy
-    public void saveMetaData() {
-        log.info("Save");
-        try (OutputStream outputStream = new FileOutputStream(storagePath + fileName)) {
-            outputStream.write(JSON.toJSONBytes(labelModel));
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error(e.toString());
-        }
-    }
-
-    public List<String> getPhotosByCate(String cate) {
+    public List<String> getPhotosByCate(String cate, LabelModel labelModel) {
         return getAccessPath(labelModel.getAllImg());
     }
 
-    public Object getAllCates() {
+    public Object getAllCates(LabelModel labelModel) {
         return labelModel.cateMap;
     }
 
-    public List<String> getAllPhotos() {
+    public List<String> getAllPhotos(LabelModel labelModel) {
         return getAccessPath(labelModel.getAllImg());
     }
 
@@ -81,7 +54,7 @@ public class ResourceService {
         return result;
     }
 
-    public void saveAndRecognizeImage(String fileName, ByteArrayInputStream inputStream) {
+    public void saveAndRecognizeImage(String fileName, ByteArrayInputStream inputStream, LabelModel labelModel) {
         log.info("saveImage");
         try {
             // 识别场景
@@ -107,12 +80,12 @@ public class ResourceService {
         }
     }
 
-    public List<String> getPhotosByCateAndLabel(String cate, String tag) {
+    public List<String> getPhotosByCateAndLabel(String cate, String tag, LabelModel labelModel) {
         return getAccessPath(labelModel.getImgByCateAndLabel(cate, tag));
     }
 
     @Data
-    static class LabelModel {
+    public static class LabelModel {
         static final String SCENE = "scene";
         static final String EXPRESSION = "expression";
         static final String STYLE = "style";

@@ -3,6 +3,7 @@ package cn.oveay.aiplatform.controller;
 import cn.oveay.aiplatform.basebean.User;
 import cn.oveay.aiplatform.service.LoginService;
 import cn.oveay.aiplatform.service.RegisterService;
+import cn.oveay.aiplatform.service.ResourceService;
 import cn.oveay.aiplatform.utils.autoid.Nanoflake;
 import cn.oveay.aiplatform.utils.sms.SMSUtil;
 import cn.oveay.aiplatform.utils.token.Token;
@@ -207,7 +208,12 @@ public class MainController {
     }
 
     @RequestMapping("/album")
-    public String album() {
+    public String album(HttpServletRequest request) {
+        ResourceService.LabelModel labelModel = (ResourceService.LabelModel) request.getSession().getAttribute("labelModel");
+        if (labelModel == null) {
+            labelModel = new ResourceService.LabelModel();
+            request.getSession().setAttribute("labelModel", labelModel);
+        }
         return "album";
     }
 

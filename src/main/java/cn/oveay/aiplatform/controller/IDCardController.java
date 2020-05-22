@@ -10,10 +10,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,10 +39,7 @@ public class IDCardController {
     @Autowired
     private OcrService ocrService;
 
-    private List<String> faceImages = new ArrayList<>();
-    private List<String> backImages = new ArrayList<>();
-    private List<Map<String, String>> faceResults = new ArrayList<>();
-    private List<Map<String, String>> backResults = new ArrayList<>();
+//    private List<String> faceImages = new ArrayList<>();
 
     /**
      * 用于跳转到首先前的处理，RequestMapping表示接受任意这个请求的路径
@@ -50,10 +47,35 @@ public class IDCardController {
      * @return index表示跳转到index.html
      */
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
+//        index是使用功能时一定会访问的，所以在这里初始化用户的容器
+        List<String> faceImages = (List<String>) request.getSession().getAttribute("faceImages");
+        if (faceImages == null) {
+            faceImages = new ArrayList<>();
+            request.getSession().setAttribute("faceImages", faceImages);
+        }
+        List<String> backImages = (List<String>) request.getSession().getAttribute("backImages");
+        if (backImages == null) {
+            backImages = new ArrayList<>();
+            request.getSession().setAttribute("backImages", backImages);
+        }
+        List<Map<String, String>> faceResults = (List<Map<String, String>>) request.getSession().getAttribute("faceResults");
+        if (faceResults == null) {
+            faceResults = new ArrayList<>();
+            request.getSession().setAttribute("faceResults", faceResults);
+        }
+        List<Map<String, String>> backResults = (List<Map<String, String>>) request.getSession().getAttribute("backResults");
+        if (backResults == null) {
+            backResults = new ArrayList<>();
+            request.getSession().setAttribute("backResults", backResults);
+        }
+
         // 说明只上传了身份证的一面
         if (faceImages.size() != backImages.size()) {
-            clearAllList();
+            faceImages.clear();
+            backImages.clear();
+            faceResults.clear();
+            backResults.clear();
         }
         // 保持识别结果，用于在视图显示
         if (!CollectionUtils.isEmpty(faceImages) && faceImages.size() == backImages.size()) {
@@ -74,11 +96,15 @@ public class IDCardController {
      */
     @PostMapping("/upload")
     public String upload(@RequestParam("face") MultipartFile face, @RequestParam("back") MultipartFile back,
-                         RedirectAttributes redirectAttributes) {
+                         RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (face.isEmpty() || back.isEmpty()) {
             redirectAttributes.addFlashAttribute("messages", "请选择一个文件进行上传。");
             return "redirect:/idcard/index";
         }
+        List<String> faceImages = (List<String>) request.getSession().getAttribute("faceImages");
+        List<String> backImages = (List<String>) request.getSession().getAttribute("backImages");
+        List<Map<String, String>> faceResults = (List<Map<String, String>>) request.getSession().getAttribute("faceResults");
+        List<Map<String, String>> backResults = (List<Map<String, String>>) request.getSession().getAttribute("backResults");
         String errorMessages = null;
         Path dir = Paths.get(uploadDir);
         if (!Files.exists(dir)) {
@@ -98,9 +124,9 @@ public class IDCardController {
             }
             if (!back.isEmpty()) {
                 String filename = saveFile(back);
-                Map<String, String> faceResult = ocrService.recognizeIdCard(uploadDir + filename, "back");
+                Map<String, String> backResult = ocrService.recognizeIdCard(uploadDir + filename, "back");
                 backImages.add("/images/idcard/" + filename);
-                backResults.add(faceResult);
+                backResults.add(backResult);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,13 +136,6 @@ public class IDCardController {
             redirectAttributes.addFlashAttribute("messages", errorMessages);
         }
         return "redirect:/idcard/index";
-    }
-
-    private void clearAllList() {
-        faceImages.clear();
-        backImages.clear();
-        faceResults.clear();
-        backResults.clear();
     }
 
     /**

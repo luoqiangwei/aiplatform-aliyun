@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
@@ -54,19 +55,48 @@ public class MotorInsureController {
     @Autowired
     private VisionService visionService;
 
-    private List<String> carImages = new ArrayList<>();
-    private List<Map<String, String>> carResults = new ArrayList<>();
-    private List<String> driveImages = new ArrayList<>();
-    private List<Map<String, String>> driveResults = new ArrayList<>();
-    private List<String> drivingImages = new ArrayList<>();
-    private List<Map<String, String>> drivingResults = new ArrayList<>();
-
     static int issueNo = 1;
 
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
+        List<String> carImages = (List<String>) request.getSession().getAttribute("carImages");
+        if (carImages == null) {
+            carImages = new ArrayList<>();
+            request.getSession().setAttribute("carImages", carImages);
+        }
+        List<Map<String, String>> carResults = (List<Map<String, String>>) request.getSession().getAttribute("carResults");
+        if (carResults == null) {
+            carResults = new ArrayList<>();
+            request.getSession().setAttribute("carResults", carResults);
+        }
+        List<String> driveImages = (List<String>) request.getSession().getAttribute("driveImages");
+        if (driveImages == null) {
+            driveImages = new ArrayList<>();
+            request.getSession().setAttribute("driveImages", driveImages);
+        }
+        List<Map<String, String>> driveResults = (List<Map<String, String>>) request.getSession().getAttribute("driveResults");
+        if (driveResults == null) {
+            driveResults = new ArrayList<>();
+            request.getSession().setAttribute("driveResults", driveResults);
+        }
+        List<String>  drivingImages = (List<String>) request.getSession().getAttribute("drivingImages");
+        if (drivingImages == null) {
+            drivingImages = new ArrayList<>();
+            request.getSession().setAttribute("drivingImages", drivingImages);
+        }
+        List<Map<String, String>> drivingResults = (List<Map<String, String>>) request.getSession().getAttribute("drivingResults");
+        if (drivingResults == null) {
+            drivingResults = new ArrayList<>();
+            request.getSession().setAttribute("drivingResults", drivingResults);
+        }
+
         if (carImages.size() != driveImages.size() && drivingImages.size() != driveImages.size()) {
-            clearAllList();
+            carImages.clear();
+            carResults.clear();
+            driveImages.clear();
+            driveResults.clear();
+            drivingImages.clear();
+            drivingResults.clear();
         }
         if (carImages.size() > 0) {
             model.addAttribute("carImage", carImages.get(carImages.size() - 1));
@@ -176,11 +206,19 @@ public class MotorInsureController {
 
     @PostMapping("/upload")
     public String upload(@RequestParam("car") MultipartFile car, @RequestParam("drive") MultipartFile drive,
-                         @RequestParam("driving") MultipartFile driving, RedirectAttributes redirectAttributes) {
+                         @RequestParam("driving") MultipartFile driving, RedirectAttributes redirectAttributes,
+                         HttpServletRequest request) {
         if (car.isEmpty() || drive.isEmpty() || driving.isEmpty()) {
             redirectAttributes.addFlashAttribute("messages", "请上传所有文件。");
             return "redirect:/issue/index";
         }
+        List<String> carImages = (List<String>) request.getSession().getAttribute("carImages");
+        List<Map<String, String>> carResults = (List<Map<String, String>>) request.getSession().getAttribute("carResults");
+        List<String> driveImages = (List<String>) request.getSession().getAttribute("driveImages");
+        List<Map<String, String>> driveResults = (List<Map<String, String>>) request.getSession().getAttribute("driveResults");
+        List<String> drivingImages = (List<String>) request.getSession().getAttribute("drivingImages");
+        List<Map<String, String>> drivingResults = (List<Map<String, String>>) request.getSession().getAttribute("drivingResults");
+
         String errorMessages = null;
         Path dir = Paths.get(uploadDir);
         if (!Files.exists(dir)) {
@@ -211,7 +249,12 @@ public class MotorInsureController {
                 drivingResults.add(drivingResult);
             }
         } catch (Exception e) {
-            clearAllList();
+            carImages.clear();
+            carResults.clear();
+            driveImages.clear();
+            driveResults.clear();
+            drivingImages.clear();
+            drivingResults.clear();
             e.printStackTrace();
             errorMessages += e.getMessage() + "\n";
             errorMessages += "您输入的图像检测失败\n";
@@ -232,15 +275,6 @@ public class MotorInsureController {
             return null;
         }
         return filename;
-    }
-
-    private void clearAllList() {
-        carImages.clear();
-        carResults.clear();
-        driveImages.clear();
-        driveResults.clear();
-        drivingImages.clear();
-        drivingResults.clear();
     }
 
     private void produceStamp(Graphics2D brush, int degree) {

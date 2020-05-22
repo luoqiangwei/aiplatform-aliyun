@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,32 +38,42 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
 
-    private List<String> resultUrls = new ArrayList<>();
-
     @RequestMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
+        List<String> lthResultUrls = (List<String>) request.getSession().getAttribute("lthResultUrls");
+        if (lthResultUrls == null) {
+            lthResultUrls = new ArrayList<>();
+            request.getSession().setAttribute("lthResultUrls", lthResultUrls);
+        }
         // 说明只上传了身份证的一面
-        if (resultUrls.size() > 0) {
-            model.addAttribute("video", resultUrls.get(resultUrls.size() - 1));
+        if (lthResultUrls.size() > 0) {
+            model.addAttribute("video", lthResultUrls.get(lthResultUrls.size() - 1));
         }
         return "lthvideo";
     }
 
     @RequestMapping("/clear")
-    public String clear(Model model) {
+    public String clear(Model model, HttpServletRequest request) {
+        List<String> clearResultUrls = (List<String>) request.getSession().getAttribute("clearResultUrls");
+        if (clearResultUrls == null) {
+            clearResultUrls = new ArrayList<>();
+            request.getSession().setAttribute("clearResultUrls", clearResultUrls);
+        }
         // 说明只上传了身份证的一面
-        if (resultUrls.size() > 0) {
-            model.addAttribute("video", resultUrls.get(resultUrls.size() - 1));
+        if (clearResultUrls.size() > 0) {
+            model.addAttribute("video", clearResultUrls.get(clearResultUrls.size() - 1));
         }
         return "videoclear";
     }
 
     @PostMapping("/uploadclear")
-    public String uploadclear(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes) {
+    public String uploadclear(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes,
+                              HttpServletRequest request) {
         if (userVideo.isEmpty()) {
             redirectAttributes.addFlashAttribute("messages", "请选择一个文件进行上传。");
             return "redirect:/video/index";
         }
+        List<String> clearResultUrls = (List<String>) request.getSession().getAttribute("clearResultUrls");
         String errorMessages = null;
         Path dir = Paths.get(uploadDir);
         if (!Files.exists(dir)) {
@@ -79,7 +90,7 @@ public class VideoController {
 //                企图处理Bilibili台标失败，不知道为什么，加了限定范围后就会处理失败
 //                resultUrls.add(videoService.clearVideoFlag(uploadDir + filename, 0.24, 0.24, 0, 0.74));
 //                效果不太好……
-                resultUrls.add(videoService.clearVideoFlag(uploadDir + filename));
+                clearResultUrls.add(videoService.clearVideoFlag(uploadDir + filename));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,11 +103,13 @@ public class VideoController {
     }
 
     @PostMapping("/uploadlth")
-    public String uploadlth(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes) {
+    public String uploadlth(@RequestParam("userVideo") MultipartFile userVideo, RedirectAttributes redirectAttributes,
+                            HttpServletRequest request) {
         if (userVideo.isEmpty()) {
             redirectAttributes.addFlashAttribute("messages", "请选择一个文件进行上传。");
             return "redirect:/video/index";
         }
+        List<String> lthResultUrls = (List<String>) request.getSession().getAttribute("lthResultUrls");
         String errorMessages = null;
         Path dir = Paths.get(uploadDir);
         if (!Files.exists(dir)) {
@@ -114,7 +127,7 @@ public class VideoController {
 //                resultUrls.add(videoService.clearVideoFlag(uploadDir + filename, 0.24, 0.24, 0, 0.74));
 //                效果不太好……
 //                resultUrls.add(videoService.clearVideoFlag(uploadDir + filename));
-                resultUrls.add(videoService.superResolveFlag(uploadDir + filename));
+                lthResultUrls.add(videoService.superResolveFlag(uploadDir + filename));
             }
         } catch (Exception e) {
             e.printStackTrace();
