@@ -8,7 +8,68 @@
 
 
 
-## 开发环境
+## 部署方式
+
+1. 填写好src/main/resources的application.properties或application.yml
+
+示例如下：
+
+```properties
+server.port=80
+
+# Upload Dir 就保存在jar所在的目录
+file.uplaod.path=base/static/images/idcard/
+file.uplaod.carpath=base/static/images/car/
+imagePath=base/static/img/
+
+vedio.upload.path=base/static/video/
+file.upload.imgPath=.
+storagePath=base/static/data/
+
+aliapi.accessKeyId=[your aliyun api accessKeyId]
+aliapi.accessKeySecret=[your aliyun api accessKeySecret]
+
+# Upload config  [上传文件大小限制]
+spring.servlet.multipart.max-file-size=5000MB
+spring.servlet.multipart.max-request-size=5000MB
+
+# Mysql
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://[your host]/[your database]?useUnicode=true&characterEncoding=utf-8&useSSL=true
+spring.datasource.username=[your mysql passord]
+spring.datasource.password=[your mysql passord]
+
+# Tomcat 就保存在jar所在的base目录(自动创建)
+server.tomcat.basedir=base
+
+# 腾讯短信
+appkey=[your tencent appkey]
+appid=[your tencent appid]
+templateId=[your tencent templateId]
+smsSign=[your tencent smsSign]
+secretId=[your tencent secretId]
+secretKey=[your tencent secretKey]
+
+# Redis
+redis.maxIdle = 2000
+redis.minIdle = 10
+redis.maxTotal = 35000
+redis.host = [your redis host]
+redis.port = [your redis port. defalut port is 6379]
+redis.password = [your redis password]
+
+# Token : 这是token失效时间， 单位 秒
+token-timeout=600
+
+# 设定分布式ID的机器号
+machine_id=0
+```
+
+2. java -jar [产生在Taget文件夹中的jar包]
+
+
+
+## 开发和部署环境
 
 - OpenJdk 14
 - Maven 3.6.3
