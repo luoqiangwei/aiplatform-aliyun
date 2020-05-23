@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,14 @@ public class ResourceService {
 
     @Autowired
     private VisionService visionService;
+
+    @PostConstruct
+    public void init() {
+        File f = new File(imagePath);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+    }
 
     public List<String> getPhotosByCate(String cate, LabelModel labelModel) {
         return getAccessPath(labelModel.getAllImg());
